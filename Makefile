@@ -28,6 +28,8 @@ OBJECTS = $(patsubst %.o, $(OBJ_DIR)/%.o, $(OBJS))
 TARGET = \
 random \
 random2 \
+chrono \
+chrono2 \
 
 # Target Files
 # TARGETS = $(patsubst %, %.out, $(TARGET))
@@ -44,7 +46,11 @@ random: $(OBJ_DIR)/000_random.o
 random2: $(OBJ_DIR)/001_random2.o
 	$(CXX) $(CXXFLAGS) $^ -o $@ $(LDFLAGS)
 
+chrono: $(OBJ_DIR)/002_chrono.o
+	$(CXX) $(CXXFLAGS) $^ -o $@ $(LDFLAGS)
 
+chrono2: $(OBJ_DIR)/003_chrono2.o
+	$(CXX) $(CXXFLAGS) $^ -o $@ $(LDFLAGS)
 
 .PHONY: clean all
 clean:
