@@ -30,6 +30,7 @@ random \
 random2 \
 chrono \
 chrono2 \
+unique-ptr \
 
 # Target Files
 # TARGETS = $(patsubst %, %.out, $(TARGET))
@@ -50,6 +51,9 @@ chrono: $(OBJ_DIR)/002_chrono.o
 	$(CXX) $(CXXFLAGS) $^ -o $@ $(LDFLAGS)
 
 chrono2: $(OBJ_DIR)/003_chrono2.o
+	$(CXX) $(CXXFLAGS) $^ -o $@ $(LDFLAGS)
+
+unique-ptr: $(OBJ_DIR)/004_unique-ptr.o
 	$(CXX) $(CXXFLAGS) $^ -o $@ $(LDFLAGS)
 
 .PHONY: clean all
