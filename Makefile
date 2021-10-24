@@ -33,6 +33,9 @@ chrono2 \
 unique-ptr \
 unique-ptr2 \
 unique-ptr3 \
+exception \
+exception2 \
+exception3 \
 
 # Target Files
 # TARGETS = $(patsubst %, %.out, $(TARGET))
@@ -62,6 +65,15 @@ unique-ptr2: $(OBJ_DIR)/005_unique-ptr2.o
 	$(CXX) $(CXXFLAGS) $^ -o $@ $(LDFLAGS)
 
 unique-ptr3: $(OBJ_DIR)/006_unique-ptr3.o
+	$(CXX) $(CXXFLAGS) $^ -o $@ $(LDFLAGS)
+
+exception: $(OBJ_DIR)/007_exception.o
+	$(CXX) $(CXXFLAGS) $^ -o $@ $(LDFLAGS)
+
+exception2: $(OBJ_DIR)/008_exception2.o
+	$(CXX) $(CXXFLAGS) $^ -o $@ $(LDFLAGS)
+
+exception3: $(OBJ_DIR)/009_exception3.o
 	$(CXX) $(CXXFLAGS) $^ -o $@ $(LDFLAGS)
 
 .PHONY: clean all
