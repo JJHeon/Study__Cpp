@@ -29,6 +29,7 @@ TARGET = \
 random \
 random2 \
 chrono \
+chrono-1 \
 chrono2 \
 unique-ptr \
 unique-ptr2 \
@@ -53,6 +54,9 @@ random2: $(OBJ_DIR)/001_random2.o
 	$(CXX) $(CXXFLAGS) $^ -o $@ $(LDFLAGS)
 
 chrono: $(OBJ_DIR)/002_chrono.o
+	$(CXX) $(CXXFLAGS) $^ -o $@ $(LDFLAGS)
+
+chrono-1: $(OBJ_DIR)/002_chrono-1.o
 	$(CXX) $(CXXFLAGS) $^ -o $@ $(LDFLAGS)
 
 chrono2: $(OBJ_DIR)/003_chrono2.o
