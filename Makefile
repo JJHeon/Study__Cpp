@@ -38,6 +38,7 @@ exception \
 exception2 \
 exception3 \
 string-1 \
+algorithm-1 \
 
 # Target Files
 # TARGETS = $(patsubst %, %.out, $(TARGET))
@@ -83,6 +84,11 @@ exception3: $(OBJ_DIR)/009_exception3.o
 
 string-1: $(OBJ_DIR)/010_string-1.o
 	$(CXX) $(CXXFLAGS) $^ -o $@ $(LDFLAGS)
+
+algorithm-1: $(OBJ_DIR)/011_algorithm-1.o
+	$(CXX) $(CXXFLAGS) $^ -o $@ $(LDFLAGS)
+
+
 
 .PHONY: clean all
 clean:
