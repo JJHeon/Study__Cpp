@@ -37,6 +37,7 @@ unique-ptr3 \
 exception \
 exception2 \
 exception3 \
+string-1 \
 
 # Target Files
 # TARGETS = $(patsubst %, %.out, $(TARGET))
@@ -78,6 +79,9 @@ exception2: $(OBJ_DIR)/008_exception2.o
 	$(CXX) $(CXXFLAGS) $^ -o $@ $(LDFLAGS)
 
 exception3: $(OBJ_DIR)/009_exception3.o
+	$(CXX) $(CXXFLAGS) $^ -o $@ $(LDFLAGS)
+
+string-1: $(OBJ_DIR)/010_string-1.o
 	$(CXX) $(CXXFLAGS) $^ -o $@ $(LDFLAGS)
 
 .PHONY: clean all
