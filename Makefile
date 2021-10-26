@@ -38,6 +38,7 @@ exception \
 exception2 \
 exception3 \
 string-1 \
+string-2 \
 algorithm-1 \
 algorithm-2 \
 algorithm-3 \
@@ -85,6 +86,9 @@ exception3: $(OBJ_DIR)/009_exception3.o
 	$(CXX) $(CXXFLAGS) $^ -o $@ $(LDFLAGS)
 
 string-1: $(OBJ_DIR)/010_string-1.o
+	$(CXX) $(CXXFLAGS) $^ -o $@ $(LDFLAGS)
+
+string-2: $(OBJ_DIR)/010_string-2.o
 	$(CXX) $(CXXFLAGS) $^ -o $@ $(LDFLAGS)
 
 algorithm-1: $(OBJ_DIR)/011_algorithm-1.o
