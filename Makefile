@@ -42,6 +42,9 @@ string-2 \
 algorithm-1 \
 algorithm-2 \
 algorithm-3 \
+regex-1 \
+regex-2 \
+regex-3 \
 
 # Target Files
 # TARGETS = $(patsubst %, %.out, $(TARGET))
@@ -99,6 +102,16 @@ algorithm-2: $(OBJ_DIR)/011_algorithm-2.o
 
 algorithm-3: $(OBJ_DIR)/011_algorithm-3.o
 	$(CXX) $(CXXFLAGS) $^ -o $@ $(LDFLAGS)
+
+regex-1: $(OBJ_DIR)/012_regex-1.o
+	$(CXX) $(CXXFLAGS) $^ -o $@ $(LDFLAGS)
+
+regex-2: $(OBJ_DIR)/012_regex-2.o
+	$(CXX) $(CXXFLAGS) $^ -o $@ $(LDFLAGS)
+
+regex-3: $(OBJ_DIR)/012_regex-3.o
+	$(CXX) $(CXXFLAGS) $^ -o $@ $(LDFLAGS)
+
 
 .PHONY: clean all
 clean:
