@@ -5,7 +5,12 @@
 #include <iostream>
 #include <string>
 #include <algorithm>
-#include <string>
+#include <sstream>
+#include <vector>
+#include <cstdio>
+#include <cstring>
+#include <regex>
+
 int main() {
     /** std::string::npos 란?
      *  본래는 const size_type == const size_t 이며 모든 비트가 1인 최대값을 의마하는 unsigned integer type이다. 하지만 signed로 변경하면 -1 이기에, 정수형으로 -1의 값을 가진다.
@@ -376,7 +381,106 @@ int main() {
      *  C++ template 기반 하에서 각 Container에 대해서 다양한 type과 Iterator를 가지기 떄문에, 일관성 있는 method 혹은 function이 없다.
      *  따라서 다른 method를 이용해 다양한 방법을 기술한다.
      *  보다 완벽한 Split은 Boost library, Qt, GNU String Utility Function  등이 구현되있다. 표준은 그렇지 못함.
+     *  참고
+     *  https://stackoverflow.com/questions/53849/how-do-i-tokenize-a-string-in-c
+     *  https://plein-de-verite.tistory.com/339
+     *  https://www.fluentcpp.com/2017/04/21/how-to-split-a-string-in-c/
      */
     {
+        std::cout << "------------------------------------------------------------------------------------------------" << std::endl;
+        std::cout << "token 반환 \n-----------------------------------------------------------------------------------------------" << std::endl;
+        // Sol 1. getline 이용
+        // 단점으로 다수의 delimiter를 쓰지 못한다.
+        {
+            std::cout << "try 1 ================================================================================ " << std::endl;
+            std::string line = "Tokenizing a string with stringstream";
+            std::string line2 = "Tokenizing\na\nstring\nwith\nstringstream\n";
+            std::string line3 = "Tokenizing\ta\tstring\twith\tstringstream\t";
+
+            std::vector<std::string> words;
+
+            std::istringstream sstream(line);
+            std::string word;
+
+            while (std::getline(sstream, word, ' ')) {
+                words.push_back(word);
+            }
+            //만약 word에 token 하나만 빼고 중지하면 무슨일이 일어날까?
+            //-> 객체 line에는 주소값 및 value 변동이 없다.
+            // sstream의 buf에 남겨져있는데, sstream으로 line을 받은 순간 복사한 것으로 추측됨
+
+            // for (int i = 0; i < static_cast<int>(words.size()); i++) std::cout << words[i] << std::endl;
+
+            for (int i = 0; i < static_cast<int>(words.size()); i++) std::cout << words[i] << std::endl;
+        }
+
+        // Sol 2. find() 와 substr() 이용
+        {
+            std::cout << "try 2 ================================================================================ " << std::endl;
+            std::string line = "i am who i am and i have the need to be.";
+            std::string delim = " ";
+            std::vector<std::string> words{};
+
+            size_t pos = 0;
+            while ((pos = line.find(delim)) != std::string::npos) {
+                words.push_back(line.substr(0, pos));
+                line.erase(0, pos + delim.length());  //찾아서 얻은 만큼을 삭제함
+            }
+
+            for (const auto& w : words) {
+                std::cout << w << std::endl;
+            }
+        }
+
+        // Sol 3. strtok() 사용
+        // 결론적으로 C style이며, string 객체로부터 꺼내야한다. c_str()은 const char* type을 반환하기에 byte에 복사해 사용하느 것이 권장됨
+        // C style이기 때문에, 많이 번거롭다.
+        // strtok, strtok_r, strtok_s, 3가지 버전이 존재하는데
+        // strtok_r은 표준이 아니며 thread safe하다., strtok_s는 C11 이후에 나온 thread safe version이다.
+        // strtok는 thread unsafe하며. c style이며, bufferoverflow 가능성이 존재한다. //thread가 NULL이 담긴 주소값을 변경할 경우.
+        {
+            std::cout << "try 3-1 ================================================================================ " << std::endl;
+            // char str[] = "Little Prince"; //가능
+
+            std::string strs = "Little Prince";
+            char* str = (char*)malloc(sizeof(char) * strs.size() + 1);
+            strs.copy(str, strs.size());
+
+            char* token;
+            char* rest = str;
+
+            while ((token = strtok_r(rest, " ", &rest)) != NULL) {
+                printf("%s\n", token);
+            }
+
+            free(str);
+
+            // char str2[] = "i am who i am and i have the need to be";
+            std::string strs2 = "i am whodd i am and i have the need to be";
+            char str2[10];
+            memset(str2, 0, sizeof(str2));
+
+            // 위 예제는 동적할당을 통해서 완벽하게 copy해 결과물이 char[] version과 동일한데,
+            // string.copy의 2st parm이 복사할 크기이기 때문에, 이 복사할 크기만큼의 char []가 필요하다.
+            // 지금은 임의로 10이기 때문에, i am whod 까지만 복사되어 tokenize 된다.
+            strs2.copy(str2, sizeof(str2) - 1);  //복사할 크기로 Null-terminated를 생각해야함.
+
+            char* token2;
+            std::cout << "try 3-2 ================================================================================ " << std::endl;
+            token2 = strtok(str2, " ");
+            while (token2 != NULL) {
+                printf("%s\n", token2);
+                token2 = strtok(NULL, " ");
+            }
+        }
+
+        // Sol 4. <regex> 정규식 활용
+        {
+            std::string str = "Break String a,spaces,and,commas";
+            std::regex re(R"([\s|,]+)");
+
+            std::vector<std::string> tokenized;
+            std::sregex
+        }
     }
 }
