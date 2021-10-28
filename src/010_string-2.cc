@@ -476,11 +476,73 @@ int main() {
 
         // Sol 4. <regex> 정규식 활용
         {
+            std::cout << "try 4-1 ================================================================================ " << std::endl;
             std::string str = "Break String a,spaces,and,commas";
             std::regex re(R"([\s|,]+)");
 
-            std::vector<std::string> tokenized;
-            std::sregex
+            std::sregex_token_iterator it{str.begin(), str.end(), re, -1};
+            std::vector<std::string> tokenized{it, std::sregex_token_iterator{}};
+
+            tokenized.erase(std::remove_if(tokenized.begin(), tokenized.end(),
+                                           [](std::string const& s) {
+                                               return s.size() == 0;
+                                           }),
+                            tokenized.end());
+
+            for (std::string token : tokenized) std::cout << token << std::endl;
+
+            std::cout << "try 4-2 ================================================================================ " << std::endl;
+            {
+                std::string str("version 1.20.300.400");
+                std::regex pattern("([0-9]+)\\.([0-9]+)\\.([0-9]+)\\.([0-9]+)");
+                {
+                    std::sregex_token_iterator begin(str.begin(), str.end(), pattern, {1, 3});  //마지막 parm이 reverse-reference의 인자값으로 보이는데.
+                    std::sregex_token_iterator end;
+                    std::for_each(begin, end,
+                                  [](const std::string& sub) {
+                                      std::cout << sub << std::endl;  // 1 300
+                                  });
+                }
+                std::cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
+                {
+                    std::string str("version 1.20.300.400");
+                    std::regex pattern("([0-9]+)\\.([0-9]+)\\.([0-9]+)\\.([0-9]+)");
+                    {
+                        std::sregex_token_iterator begin(str.begin(), str.end(), pattern, {2, 4});
+                        std::sregex_token_iterator end;
+                        std::for_each(begin, end,
+                                      [](const std::string& sub) {
+                                          std::cout << sub << std::endl;  // 20 400
+                                      });
+                    }
+                }
+                std::cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
+                {
+                    std::string str("version 1.20.300.400");
+                    std::regex pattern("([0-9]+)\\.([0-9]+)\\.([0-9]+)\\.([0-9]+)");
+                    {
+                        std::sregex_token_iterator begin(str.begin(), str.end(), pattern, 0);
+                        std::sregex_token_iterator end;
+                        std::for_each(begin, end,
+                                      [](const std::string& sub) {
+                                          std::cout << sub << std::endl;  // 1.20.300.400
+                                      });
+                    }
+                }
+                std::cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
+                {
+                    std::string str("version 1.20.300.400 nothing happen");
+                    std::regex pattern("([0-9]+)\\.([0-9]+)\\.([0-9]+)\\.([0-9]+)");
+                    {
+                        std::sregex_token_iterator begin(str.begin(), str.end(), pattern, -1);
+                        std::sregex_token_iterator end;
+                        std::for_each(begin, end,
+                                      [](const std::string& sub) {
+                                          std::cout << sub << std::endl;  // version
+                                      });
+                    }
+                }
+            }
         }
     }
 }
