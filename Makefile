@@ -47,6 +47,7 @@ algorithm-3 \
 regex-1 \
 regex-2 \
 regex-3 \
+global-variable-1
 
 # Target Files
 # TARGETS = $(patsubst %, %.out, $(TARGET))
@@ -118,6 +119,9 @@ regex-2: $(OBJ_DIR)/012_regex-2.o
 	$(CXX) $(CXXFLAGS) $^ -o $@ $(LDFLAGS)
 
 regex-3: $(OBJ_DIR)/012_regex-3.o
+	$(CXX) $(CXXFLAGS) $^ -o $@ $(LDFLAGS)
+
+global-variable-1: $(OBJ_DIR)/013_global-variable-1.o
 	$(CXX) $(CXXFLAGS) $^ -o $@ $(LDFLAGS)
 
 
