@@ -2,6 +2,9 @@
  * 21.11.28
  * array 객체 복사가 완벽한지 test
  * 객체 복사생성 이상 없음
+ *
+ * 이중 배열 객체의 경우.
+ * array 구조 파악
  */
 
 #include <iostream>
@@ -34,6 +37,21 @@ int main() {
     delete arr3;
     for (auto k : arr4) cout << k << " ";
     cout << endl;
+
+    array<array<int, 3>, 5> darr;
+    for (auto i_1 = darr.begin(); i_1 != darr.end(); i_1++) {
+        for (auto i_2 = (*i_1).begin(); i_2 != (*i_1).end(); i_2++) {
+            *i_2 = 0;
+        }
+    }
+
+    cout << " double array =====" << endl;
+    for (auto i_1 = darr.begin(); i_1 != darr.end(); i_1++) {
+        for (auto i_2 = (*i_1).begin(); i_2 != (*i_1).end(); i_2++) {
+            cout << *i_2 << " ";
+        }
+        cout << endl;
+    }
 
     return 0;
 }
