@@ -47,7 +47,8 @@ algorithm-3 \
 regex-1 \
 regex-2 \
 regex-3 \
-global-variable-1
+global-variable-1 \
+array-1 
 
 # Target Files
 # TARGETS = $(patsubst %, %.out, $(TARGET))
@@ -124,6 +125,8 @@ regex-3: $(OBJ_DIR)/012_regex-3.o
 global-variable-1: $(OBJ_DIR)/013_global-variable-1.o
 	$(CXX) $(CXXFLAGS) $^ -o $@ $(LDFLAGS)
 
+array-1: $(OBJ_DIR)/014_array-1.o
+	$(CXX) $(CXXFLAGS) $^ -o $@ $(LDFLAGS)
 
 .PHONY: clean all
 clean:
