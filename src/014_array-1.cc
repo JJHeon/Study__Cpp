@@ -3,6 +3,9 @@
  * array 객체 복사가 완벽한지 test
  * 객체 복사생성 이상 없음
  *
+ * 객체 복사 (복사생성X) 에 대해서 깊은 복사를 수행하는지. ->Yes
+ * 
+ * 
  * 이중 배열 객체의 경우.
  * array 구조 파악
  */
@@ -33,19 +36,28 @@ int main() {
     for (auto k : arr4) cout << k << " ";
     cout << endl;
 
+    cout << "객채의 복사 가능(복사생성X) 여부 ======" << endl;
+    array<int, 5> arr5;
+    arr5 = *arr3;
+    for (auto k : arr5) cout << k << " ";
+    cout << endl;
+
     cout << "원본 포인터 객체 파괴 후======" << endl;
     delete arr3;
     for (auto k : arr4) cout << k << " ";
     cout << endl;
 
+    cout << "복사한 개체에 대해서(복사생성X) ======" << endl;
+    for (auto k : arr5) cout << k << " ";
+    cout << endl;
+
+    cout << " double array =====" << endl;
     array<array<int, 3>, 5> darr;
     for (auto i_1 = darr.begin(); i_1 != darr.end(); i_1++) {
         for (auto i_2 = (*i_1).begin(); i_2 != (*i_1).end(); i_2++) {
             *i_2 = 0;
         }
     }
-
-    cout << " double array =====" << endl;
     for (auto i_1 = darr.begin(); i_1 != darr.end(); i_1++) {
         for (auto i_2 = (*i_1).begin(); i_2 != (*i_1).end(); i_2++) {
             cout << *i_2 << " ";
