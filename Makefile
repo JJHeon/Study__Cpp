@@ -49,7 +49,8 @@ regex-2 \
 regex-3 \
 global-variable-1 \
 array-1 \
-shared_ptr-1
+shared_ptr-1 \
+vector-1
 
 # Target Files
 # TARGETS = $(patsubst %, %.out, $(TARGET))
@@ -130,6 +131,9 @@ array-1: $(OBJ_DIR)/014_array-1.o
 	$(CXX) $(CXXFLAGS) $^ -o $@ $(LDFLAGS)
 
 shared_ptr-1: $(OBJ_DIR)/015_shared_ptr-1.o
+	$(CXX) $(CXXFLAGS) $^ -o $@ $(LDFLAGS)
+	
+vector-1: $(OBJ_DIR)/015_vector-1.o
 	$(CXX) $(CXXFLAGS) $^ -o $@ $(LDFLAGS)
 
 .PHONY: clean all

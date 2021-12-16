@@ -8,6 +8,8 @@
  * 
  * 이중 배열 객체의 경우.
  * array 구조 파악
+ * 
+ * 2중 배열 객체, size() 크기 확인
  */
 
 #include <iostream>
@@ -64,6 +66,12 @@ int main() {
         }
         cout << endl;
     }
+
+    cout << "1번째 size" << endl;
+    cout << darr.size() << endl;
+
+    cout << "2번째 size" << endl;
+    cout << darr.at(0).size() << endl;
 
     return 0;
 }
