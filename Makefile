@@ -48,7 +48,8 @@ regex-1 \
 regex-2 \
 regex-3 \
 global-variable-1 \
-array-1 
+array-1 \
+shared_ptr-1
 
 # Target Files
 # TARGETS = $(patsubst %, %.out, $(TARGET))
@@ -126,6 +127,9 @@ global-variable-1: $(OBJ_DIR)/013_global-variable-1.o
 	$(CXX) $(CXXFLAGS) $^ -o $@ $(LDFLAGS)
 
 array-1: $(OBJ_DIR)/014_array-1.o
+	$(CXX) $(CXXFLAGS) $^ -o $@ $(LDFLAGS)
+
+shared_ptr-1: $(OBJ_DIR)/015_shared_ptr-1.o
 	$(CXX) $(CXXFLAGS) $^ -o $@ $(LDFLAGS)
 
 .PHONY: clean all
